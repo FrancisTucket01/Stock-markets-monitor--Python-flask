@@ -1,0 +1,44 @@
+{% extends "index.html" %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block content %}
+<form name="signup" onsubmit="return validate()" style="width: 400px; height:500;">
+    <div class="form-head center-elements">
+        <h1>LIT Wallet</h1>
+        <h2>Sign Up</h2>
+    </div>
+    <div class="form-content">
+        <label for="">First Name</label>
+        <input type="text" name=""  placeholder="First Name">
+        <label for="">Surname</label>
+        <input type="text" name=""  placeholder="Surname">
+        <label for="">Email Address</label>
+        <input type="email" name=""  placeholder="example@example.com">
+        <label for="Username">Username</label>
+        <input type="text" name="Username"  placeholder="Username or Email_Address">
+        <label for="Password">Password</label>
+        <input type="password" name="password" placeholder="Password">
+        <label for="">Confirm Password</label>
+        <input type="password" name="password2" placeholder="Confirm Password">
+        <p> Already have an account? <a href="{{ url_for('signin') }}"> <strong>Sign In</strong></a></p>
+        <input type="submit" onclick="validate()" name="Submit" value="Sign Up"id="">
+    </div>
+ </form>
+
+{% endblock %}
+{% block scripts %}
+    <script>
+        
+        function validate(){
+            var pass = document.forms.signup.password.value
+            var pass2 = document.forms.signup.password2.value
+            if (pass == pass2){
+                return true 
+            }
+            else{
+                return false
+            }
+        }
+    </script>
+{% endblock %}

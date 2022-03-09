@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIT Wallet | {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="static/index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet"> 
+    <script src="https://kit.fontawesome.com/7efcab6e4d.js" crossorigin="anonymous"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    {% block links %}
+    {% endblock %}
+
+    <style>
+        *{
+            margin: 0px;
+        }
+        body{
+            --col-font: white;
+            --col1: #5AC994;
+            --col2: #C0F7B7;
+            --col3: #124143;
+            --col4: #141B29;
+            --colA: #ffede1;
+            --col-le: #d7f9ff;
+            --colC: #afcbff;
+            --colD: #08415c;
+            --col-bg: #143642;
+            --col-fnt: #eaeaea;
+            --col-btn: #ff3f3f;
+            --col-el: #1885ff;
+            font-family: Poppins;
+            overflow-x: hidden;
+            padding: 0.1px;
+
+        }
+        nav{
+            width: 100%;
+            height: 60px;
+            background-color:var(--col4); 
+            box-shadow: 0px 0px 10px 0px var(--col3);
+            z-index: 989;
+            position: fixed;
+            background-image: linear-gradient(-180deg, var(--col4), var(--col3));
+        }
+        .nav-wrapper{
+            width: calc(100% - 100px);
+            height: 100%;           
+            margin-left: 50px;      
+            margin-right: 50px;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+        }
+        .nav-content{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            font-size: 24px;
+        }
+        .nav-content div{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+
+        }
+        .nav-content div a{
+            color: var(--col-font);
+            text-decoration: none;
+            padding: 9px 12px;
+            border-radius: 6px;
+            transition: ease-in-out 0.6s;
+        }
+        .nav-content div a:hover{
+            background-color: var(--colC);
+            color: var(--colD);
+        }
+        .line{
+            display: none;
+            width: 100%;
+            height: 3px;
+            background-color: var(--colC);
+        }
+        .logo{
+            flex: 1;
+            font-size: 28px;
+            font-weight: 700;
+        }
+        .nav-center{
+            flex: 4;
+        }
+        .nav-right{
+            flex: 2;
+            display: flex;
+            justify-content: flex-end !important;
+            position: relative;
+        }
+        .nav-right a:hover{
+            cursor: pointer;
+        }
+        .nav-right a:hover .profile{
+            display: flex !important;
+        }
+        
+        form{
+            min-width: 280px;
+            max-width: 400px;
+            background-image: linear-gradient(145deg, var(--col4), var(--col3));
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            position:relative;
+            align-items: center;
+            border-radius: 9px;
+            color: var(--col-font);
+            box-shadow: 0px 0px 40px 3px var(--col4);
+            margin: auto;
+            margin-top: 26px;
+            padding: 6px;
+        }
+        .form-content{
+            display: flex;
+            width: 95%;
+            margin:12px 0px 9px 9px;
+            flex-direction: column;
+        }
+        .form-content input{
+            width: 90%;
+            height: 28px;
+            margin: 12px 0px;
+            background-color:rgb(255, 255, 255);
+            font-size: 16px;
+            color: var(--colC);
+            border: none;
+            border-radius: 3px;
+        }
+        .form-content input:focus{
+            box-shadow: 0px 0px 12px 2px #73fcba;
+            border:solid 2px var(--col1);
+            outline: none;
+            border-radius: 4px;
+        }
+        .form-content input[type=submit]{
+            width: 92%;
+            height: 40px;
+            border: none;
+            margin: 32px 0px 0px 0px;
+            background-color: var(--col1);
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--col4);
+            border-radius: 3px;
+            border: none;
+        }
+        .form-content input[type=submit]:hover{
+            cursor: pointer;
+            opacity: 0.9;
+            color: var(--colA) ;
+        }
+        .form-content a{
+            text-decoration: none;
+            color: var(--col4);
+            padding: 3px 2px;
+            border-radius: 6px;
+            background-color: var(--col1);
+        }
+        .form-content a:hover{
+            color: var(--colA);
+            opacity: 0.9;
+        }
+        .form-head{
+            margin-top: 0px;
+            width: 100%;
+            height: 40%;
+            
+        }
+        .container{
+            position: relative;
+            min-height: calc(100vh - 60px);
+            width: 100%;
+            margin-top: 60px;
+            flex-direction: column;
+            position:relative;
+            color: var(--col4);
+            padding: 0.1px;
+        }
+        .container-wrapper{
+            width: calc(100% - 190px);
+            min-height: 96vh;
+            margin: 12px 0px 2px 175px;
+            background-color: #1241430c;
+            display: flex;
+            flex-direction: column;
+            color: var(--col4);
+            border-radius: 3px;
+        }
+        .notification{
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.753);
+            position: fixed !important;
+            top: 0px;
+            left: 0px;
+            z-index: 9999;
+            display: none !important;
+        }
+        .message{
+            width: 400px;
+            height: 500px;
+            background-color: whitesmoke;
+            border-radius: 6px;
+            box-shadow: 0px 0px 40px 12px black;
+        }
+        .hed{
+            text-align: center;
+        }
+        
+        .news{
+            position: relative;
+            width: 90%;
+            min-height: 40%;
+            margin: 26px auto;
+            border-radius: 2px;
+            background-color: var(--colC);
+            padding: 9px;
+            font-size: 14px;
+        }
+        .news a{
+            text-decoration: none;
+            color: var(--col4);
+        }
+        .news li{
+            margin-left: 0px;
+            width: 100%;
+            list-style: none;
+            margin-bottom: 4px;
+            border-radius: 3px;
+            opacity: 0.9;
+            background-color: white;
+            display: flex;
+            min-height: 40px;
+        }
+        .news li:hover{
+            opacity: 1;
+            background-color: var(--colC);
+            cursor: pointer;
+            box-shadow: 0px 0px 10px 2px grey;
+            transition: ease-in-out 0.2s;
+        }
+        .news li .news-date{
+            flex: 1;
+        }
+        .news li .news-info{
+            flex: 4;
+        }
+        .news li div{
+            display: flex;
+            align-items: center;
+            padding-left: 4px;
+        }
+        .side-nav{
+            background-color: var(--col4);
+            position: fixed;
+            top:  62px;
+            width: 150px;
+            height: calc(100% - 80px);
+            left: 0px;
+            padding: 9px;
+            display: flex;
+            flex-direction: column;
+            z-index: 900;
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+            overflow-y: scroll;
+            transition: 0.1s;
+            background-image: linear-gradient(135deg, var(--col4), var(--col3));
+        }
+        
+        .side-nav a:hover{
+            background-color: var(--colC);
+            color: var(--colD);
+        }
+        .side-nav a{
+            text-decoration: none;
+            color: var(--col-font);
+            padding: 5px 12px;
+            margin: 9px 6px;
+            border-radius: 6px;
+            transition: ease-in-out 0.6s;
+            
+        }
+        .side-nav a:hover ::before{
+            content: "Hello there"
+        }
+        .center-elements{
+            display: flex;
+            flex-direction: column;
+            position:relative;
+            justify-content: center;
+            align-items: center;
+        }
+        footer{
+            position: relative;
+            margin-top: 124px;
+            width: 100vw;
+            min-height: 180px;
+            background-color: var(--col4);
+            overflow-x: hidden;
+            background-image: linear-gradient(180deg, var(--col4), var(--col3));
+            
+        }
+        .footer-wrapper div{
+            color:var(--colC);
+            padding: 12px;
+            margin: 6px;
+            display: flex;
+            flex-direction: column;
+        }
+        .footer-wrapper div a{
+            text-decoration: none;
+            color: var(--col-font);
+            border-radius: 3px;
+        }
+        .footer-wrapper div a:hover{
+            color: var(--colD);
+            background-color: var(--colC);
+        }
+        .footer-wrapper{
+            width: 100%;
+            height: 100%;
+            position: relative;
+            display: flex;
+        }
+        .footer-main{
+            flex: 3;
+        }
+        .footer-right{
+            flex: 2;
+        }
+        .footer-left{
+            flex: 2;
+        }
+        .copyright{
+            text-align: center;
+            color: var(--col3);
+            background-color: var(--col4);
+        }
+        .scroll{
+            width: 50px;
+            height: 50px;
+            position: fixed;
+            right: 25px;
+            bottom: -85px;
+            background-color: white;
+            border-radius: 50px;
+            box-shadow: 0px 0px 26px 3px black;
+            z-index: 999 !important;
+            transition: ease-in-out .25s;
+            
+            
+        }
+        .visible{
+            bottom: 25px;
+            transition: ease-in-out .5s;
+        }
+        .scroll a{
+            color: var(--col4);
+            padding: 13px;
+            border-radius: 50%;
+        }
+        .scroll a:hover{
+            cursor: pointer;
+        }
+        .profile{
+            flex-direction: column !important;
+            width: 150px;
+            height: 200px;
+            background-color : red;
+            color: white;
+            position: absolute !important;
+            top: 55px;
+            right: 0px;
+            display: none !important;
+            border-bottom-right-radius: 6px;
+            border-bottom-left-radius: 6px;
+            border-top-left-radius: 13px;
+            background-image: linear-gradient(180deg, var(--col4), var(--col3));
+        }
+        .prof-vis{
+            display:flex !important;
+        }
+        .prof-head{
+            width: 100%;
+            height: 30%;
+            border-top-left-radius: 12px;
+        }
+        .prof-body{
+            width: 100%;
+            height: 70%;
+            display: flex;
+            flex-direction: column !important;
+            align-items: flex-start !important;
+        }
+        .profile hr{
+            width: 96%;
+            border: 2px solid var(--col3);
+        }
+        .prof-body a{
+            margin: 2px 0px 2px 18px;
+            padding: 2px 6px 2px 6px !important;
+            font-size: 18px;
+        }
+        .dark{
+            background-color: var(--col4) !important;
+            color: whitesmoke !important;
+        }
+        .chart{
+            min-width: 500px;
+            min-height: 500px;
+            width: 90%;
+            height: 80%;
+            background-color: #124143;
+            margin: 12px auto 12px auto;
+            padding: 6px;
+            color: #c0f7b73a;
+            opacity: 0.9;
+            border-radius: 2px;
+        }
+        .newchart{
+            width: 100%;
+            height: 100%;
+        }
+        .chart:hover{
+            opacity: 1;
+            cursor: crosshair;
+        }
+        .error{
+            width: 100%;
+            height: 22px;
+            background-color: rgb(158, 36, 36);
+            border-radius: 3px;
+            text-align: center;
+        }
+        .fr{
+            width: 400px;
+            height: 450px;
+            background-color: white;
+            display: flex;
+            margin: auto;
+            position: relative;
+            border: 2px groove gray;
+            box-shadow: 5px 5px 20px 2px gray;
+        }
+        .fr .title{
+            background-color: rgb(46, 96, 231);
+            font-size: 18px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .fr li{
+            list-style: none;
+            height: 48px;
+            border: 1px groove rgb(235, 235, 235);
+        }
+        .fr .column{
+            border: 1px solid rgb(243, 243, 243);
+            flex: 1;
+            padding: 2px;
+            margin: 2px;
+            height: 200px;
+        }
+        .fr .last{
+            position: absolute;
+            bottom: 0px;
+        }
+        .text input{
+            width: 350px;
+        }
+    </style>
+</head>
+<body  onscroll="pos()" onload="pos(), changeTheme()">
+
+    <header>
+        <nav>
+            <div class="nav-wrapper">
+                <div class="nav-content">
+                    <div class="logo">
+                        <a href="/">LITW</a>
+                    </div>
+                    <div class="nav-center">
+                        <a href="{{ url_for('home') }}">Dashboard</a>
+                        <a href="{{ url_for('charts') }}">Charts</a>
+                        <a href="">Transactions</a>
+                        <a href="">Transfer</a>
+                    </div>
+                    {% if session['loggedin'] == True %}
+                        <div class="nav-right">
+                            <a  id="profile">Profile 
+                            </a>
+                            <div class="profile" id="prof">
+                                <div class="prof-head">
+                                    <h4>Profile</h4>
+                                </div>
+                                <hr>
+                                <div class="prof-body">
+                                    <a href="">Preferences</a>
+                                    <a  onclick="themeToggle()" id="theme-text">Dark Theme</a>
+                                    <a href="{{ url_for('signout') }}">Sign Out</a>
+                                </div>
+                            </div>
+                            
+                            
+                        </div>
+                    {% else %}
+                        <div class="nav-right">
+                            <a href="{{ url_for('signin') }}">Sign In</a>
+                            <a href="{{ url_for('signup') }}">Sign Up</a>
+                        </div>
+                    {% endif %}
+                    
+
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="scroll center-elements" id="scro">
+        <a id="scrol"><i class="fa-solid fa-arrow-up-long fa-2xl"></i></a>
+    </div>
+    <div class="container" id="wrapper">
+        {% block content %}
+        
+        {% endblock %}
+        
+        
+        <footer id="footer">
+            <div class="footer-wrapper" >
+                <div class="footer-main">
+                    <h3>LIT Wallet</h3>
+                    <p>Where all your E-money is handled securely and in one screen. Bitcoin, Paypal, Etherium among others all accessible
+                        in a single view. Transacting to and from all these platforms has never been simpler.
+                    </p>
+                </div>
+                <div class="footer-left">
+                    <h3>Important links</h3>
+                    <a href="">Home</a>
+                    <a href="">Wallets</a>
+                    <a href="">Transactions</a>
+                    <a href="">Transfer</a>
+                </div>
+                <div class="footer-right">
+                    <h3>Contact us</h3>
+                    <a href="">Facebook</a>
+                    <a href="">Instagram</a>
+                    <a href="">Twiter</a>
+                    <a href="">Linked in</a>
+                    
+                </div>
+            </div>
+            <div class="copyright"><h3>copyright &nbsp&nbsp:&nbsp&nbsp LITWallet@2022</h3></div>
+        </footer>
+    </div>
+    <script>
+        const profile = document.getElementById("profile");
+        const profCont = document.getElementById("prof");
+        profile.addEventListener("click", () => {
+            profCont.classList.toggle("prof-vis");
+        })
+    </script>
+    {% block scripts %}
+    {% endblock %}
+</body>
+</html>

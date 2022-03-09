@@ -1,0 +1,66 @@
+{% extends "index.html" %}
+
+{% block title %}Sign In{% endblock %}
+
+{% block content %}
+<!--
+<div class="fr">
+    <div class="column">
+        <li class="title">Name</li>
+        <li>Name</li>
+        <li>Sex</li>
+        <li>Eye color</li>
+        <li>Check all that apply</li>
+    </div>
+    <div class="column">
+        <li class="title">Value</li>
+        <li>
+            <input type="text" name="" id="">
+        </li>
+        <li>
+            <input type="radio" name="sex" id=""><label for="sex"></label>Male</label><br>
+            <input type="radio" name="sex" id=""><label for="sex">Female</label>
+        </li>
+        <li>
+            <select name="" id="">
+                <option value="">Black</option>
+                <option value="">Blue</option>
+                <option value="">Green</option>
+            </select>
+        </li>
+        <li>
+            <input type="checkbox" name="feet" id=""><label for="feet">Over 6 feet tall </label><br>
+            <input type="checkbox" name="feet" id=""><label for="feet">Over 200 pounds </label>
+        </li>
+    </div>
+        <div class="last">
+            
+            <li>Describe your athletic ability</li>
+            <textarea name="" id="" cols="51" rows="8"></textarea>
+        </div>
+</div>
+-->
+<form action="/login" method = "POST" style="width: 300px;{% if error %}box-shadow: 0px 0px 25px 3px red;{% endif %}">
+    {% if error %}
+        <div class="error">
+            {{ error }}
+        </div>
+    {% endif %}
+    <div class="form-head center-elements">
+        <h1>LIT Wallet</h1>
+        <h2>Sign In  </h2>
+    </div>
+    <div class="form-content">
+        <label for="id"></label>
+        <input type="hidden" name="id" value="1">
+        <label for="username">Username</label>
+        <input type="text" name="username" id="" placeholder="Username or Email_Address">
+        <label for="password">Password</label>
+        <input type="password" name="password" id="" placeholder="Password">
+        <p> Do not have an account? <a href="{{ url_for('signup') }}"> <strong>Sign Up</strong> </a></p>
+
+        <input type="submit" name="Submit" value="Sign In"id="">
+    </div>
+ </form>
+
+{% endblock %}

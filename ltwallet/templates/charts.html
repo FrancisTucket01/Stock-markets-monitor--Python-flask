@@ -1,0 +1,47 @@
+{% extends "index.html" %}
+
+
+{% block title %} Charts {% endblock %}
+{% block links %}
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="container-wrapper">
+        <div class="chart">
+            <div class="newchart" id="chart"></div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        const cxs = document.getElementById("chart")
+        $(function() {
+            $(document).ready(function () {
+                $.getJSON('/barchart',  function(data) {
+                    var options = {
+                        chart: {
+                            type: ''
+                        },
+                        series: [{
+                            name: 'sales',
+                            data: data.variables,
+                        }],
+                        xaxis: {
+                            categories: [1991,1992,1993,1994,1995,1996,1997, 1998,1999]
+                        }
+                        }
+
+                        var chart = new ApexCharts(document.querySelector("#chart"), options);
+
+                        chart.render();
+                });
+            });
+        });
+    </script>
+{% endblock %}
+

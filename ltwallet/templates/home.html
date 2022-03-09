@@ -1,0 +1,229 @@
+{% extends "index.html" %}
+
+
+{% block title %} Dashboard {% endblock %}
+
+
+{% block content %}
+<div class="notification center-elements" id="popup">
+    <div class="message">
+    </div>
+</div>
+<div class="side-nav", id="side">
+    
+    {% for data in database %}
+        	{% if data == "news" %}
+                <a href="/?db={{ data }}"> ALL </a> 
+            {% else %}
+               <a href="/?db={{ data }}"> {{ data }} </a> 
+            {% endif %}
+    {% endfor %}
+    <a href="/?db=news&latest=True"> Latest </a> 
+
+</div>
+
+<div class="container-wrapper">
+    {% if session['loggedin'] == True %}
+        {% if error != "None" %}
+            <div class="chart" id="chart">
+                <canvas id="linechart" ></canvas>
+            </div>
+        {% endif %}
+    {% endif %}
+    {% if db == "news" %}
+        <div class="hed" id="hed"><h1>Showing ALL News</h1></div>
+    {% else %}
+        <div class="hed" id="hed"><h1>{{ db }} News</h1></div>
+    {% endif %}
+    <div class="news">
+        <p>{{ mess }}</p>
+        {% if data != () %}
+            
+        
+            {% for row in data %}
+                {% if latest %}
+                    {% if "minutes" in row[1] %}
+                        <a href="{{ row[3] }}"  target="_blank"><li class="lists">
+                            <div class="news-date">{{ row[1] }}</div>
+                            <div class="news-info">{{ row[2] }}</div>
+                        </li></a>
+                    {% endif %}
+                {% else %}
+                    <a href="{{ row[3] }}"  target="_blank"><li class="lists">
+                        <div class="news-date">{{ row[1] }}</div>
+                        <div class="news-info">{{ row[2] }}</div>
+                    </li></a>
+                {% endif %}
+            {%  endfor %}
+        {% else %}
+            <li style="display:flex;justify-content: center;align-items: center;color:var(--col-btn);"><strong>ERROR 1224 : No Data To Be Displayed!!!</strong></li>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const popup = document.getElementById("popup").style.display
+    const scroler = document.getElementById("scrol")
+    function pos(){
+        const top = document.getElementById("side").style.top
+        const footer = document.getElementById("footer").getBoundingClientRect().y
+        const win = window.innerHeight
+
+        if (footer <= win){
+            const x = win - footer - 60
+            document.getElementById("side").style.top = `${-x}px`
+        }
+        else{
+            document.getElementById("side").style.top = "64px"
+        }
+    }
+    function notify() {
+        if (popup == "none"){
+            document.getElementById("popup").style.display = "grid";
+        }
+    }
+    scroler.addEventListener("click", () =>{
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+        
+    })
+    const scro = document.getElementById("scro")
+    window.addEventListener("scroll",() =>{
+        const top = window.scrollY
+        if(top >= 400){
+            scro.classList.add("visible");
+
+        }
+        if (top < 400 ){
+            scro.classList.remove("visible");
+        }
+    })
+    
+    const theme = document.getElementById("theme");
+    const wrapper = document.getElementById("wrapper");
+    const lists = document.getElementsByClassName("lists")
+    const them = sessionStorage.getItem("theme")
+    const hed = document.getElementById("hed")
+    const mychart = document.getElementById("chart")
+    const themeText = document.getElementById("theme-text")
+    function themeToggle(){
+        wrapper.classList.toggle("dark");
+        hed.classList.toggle("dark")
+        mychart.classList.toggle("dark")
+        for (i=0; i<lists.length; i++){
+            lists[i].classList.toggle("dark");
+        }
+        if (document.getElementById("theme-text").innerHTML == 'Light Theme'){
+            document.getElementById("theme-text").innerHTML = 'Dark Theme';
+        }
+        else{
+            document.getElementById("theme-text").innerHTML = "Light Theme"
+        }
+        if ( them == "dark"){
+            sessionStorage.setItem("theme", "light");
+        }else if(them == "light"){
+            sessionStorage.setItem("theme", "dark");
+        }
+        else{
+            sessionStorage.setItem("theme", "light");
+        }
+    }
+    function changeTheme(){
+        wrapper.classList.toggle(them);
+        hed.classList.toggle(them)
+        mychart.classList.toggle(them)
+        if (them == 'dark'){
+            document.getElementById("theme-text").innerText = "Light Theme"
+        }
+        else{
+            document.getElementById("theme-text").innerText = "Dark Theme"
+        }
+        for (i=0; i<lists.length; i++){
+            lists[i].classList.toggle(them);
+        }
+    }
+    
+
+    var chart = null;
+    const cxs = document.getElementById("linechart")
+    $(function() {
+        $(document).ready(function dataGet() {
+            $.getJSON('/current_data', {market: window.location.search.replace("?db=","")}, function(data) {
+                if(chart != null){
+                    chart.destroy();
+                }
+                if (data.error == "None"){
+                    document.getElementById("chart").style.display = "none";
+                };
+                chart = new Chart(cxs, {
+                    type: 'line',
+                    data: {
+                        labels: data.time_data,
+                        datasets:[
+                            {
+                                label: data.market,
+                                data: data.values_data,
+                                fill: true,
+                                backgroundColor: '#afcbff6a',
+                                borderColor: '#afcbff',
+                                lineTension: 0.1,
+                                pointRadius: 0,
+                            }
+                        ]
+                    },
+                    options: {
+                        plugins: {
+                            title: {
+                                display: true,
+                                size: 32,
+                                text: 'Current Data for ' + data.market,
+                                padding: {
+                                    top: 10,
+                                    bottom: 30
+                                },
+                                font: {
+                                    size: 22
+                                }
+                            }
+                        },
+                        maintainAspectRatio: false,
+                        color: 'white',
+                        layout: {
+                            padding: {
+                                left: 12,
+                                right: 12,
+                                top: 12,
+                                bottom: 12,
+                            },
+                        },
+                        scales:{
+                            y:{
+                                ticks:{
+                                    color: 'white',
+                                },
+                                grid:{
+                                    color: 'grey',
+                                }
+                            },
+                            x:{
+                                ticks:{
+                                    color: 'white',
+                                },
+                                grid:{
+                                    color: 'grey',
+                                }
+                            },
+                        }
+                    },
+                });
+                Chart.defaults.color = "white",
+
+                setTimeout(dataGet, 200000);
+                
+            });
+        });
+    });
+    
+</script>
+{% endblock %}
