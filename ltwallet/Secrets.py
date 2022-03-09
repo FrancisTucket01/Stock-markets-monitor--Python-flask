@@ -1,3 +1,3 @@
-API_key = "3RJhPlxAYKTTILEQT3miresYN"
-API_key_secret = "pDgCqrwIXOk6bOPBrSuuoSTVC87kNKsB3OsKJUn803q82sQLaw"
-Bearer_token = "AAAAAAAAAAAAAAAAAAAAAP0pZQEAAAAA2bpQbd6QDbEEJ6RSb4FZPYxJM%2BA%3Dq3WFDv6mVugwqHXgxxFBHrTvFZwqOUtmkALRSqfn5db8eK5IOC"
+API_key = "Your key here"
+API_key_secret = "your secret here"
+Bearer_token = "your tocken here"
